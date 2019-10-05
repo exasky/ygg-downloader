@@ -1,0 +1,58 @@
+<form class="flex-shrink">
+  <mat-form-field>
+    <input matInput placeholder="Search"
+           [(ngModel)]="yggSearchQuery.query"
+           [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="yggSearchQuery.cat" [ngModelOptions]="{standalone: true}">
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button type="button" (click)="search()">Search</button>
+</form>
+
+<div class="fles-grow overflow">
+  <mat-table [dataSource]="yggSearchResult">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="size">
+      <mat-header-cell *matHeaderCellDef>Size</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.size}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="seed">
+      <mat-header-cell *matHeaderCellDef>Seed</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.seeds}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="leech">
+      <mat-header-cell *matHeaderCellDef>Leech</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.peers}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="detail(element)">Show Detail</button>
+        <button mat-raised-button color="accent" (click)="download(element)">Download</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
