@@ -1,0 +1,11 @@
+*.iml
+.idea/
+
+*.log
+node_modules/
+dist/
+
+config/*.yml
+!config/config.example.yml
+
+

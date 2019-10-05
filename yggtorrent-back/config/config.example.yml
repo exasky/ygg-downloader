@@ -1,0 +1,24 @@
+authentication:
+  secret: 'this is a secret password'
+
+typeorm:
+  type: 'postgres'
+  host: 'localhost'
+  port: 0000
+  username: 'postgres'
+  password: ''
+  database: 'example'
+  entities:
+    - 'dist/**/entity/*.entity.js'
+
+torrent:
+  username: 'test'
+  password: 'test'
+  downloadPath: '/example/path/where/stock/torrent/files'
+
+deluge:
+  url: 'http://deluge.url:port'
+  password: 'deluge_password'
+  downloadLocation: '/deluge/torrent/download/location'
+
+port: 3000
