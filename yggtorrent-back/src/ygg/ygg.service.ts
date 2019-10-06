@@ -7,14 +7,16 @@ export class YggService {
     private yggClient: any;
     private delugeClient: any;
 
-    constructor() {
-        const configuration = getConfiguration();
+    private configuration: any;
 
-        const torrentConfig = configuration.torrent;
+    constructor() {
+        this.configuration = getConfiguration();
+
+        const torrentConfig = this.configuration.torrent;
         TorrentSearchApi.enableProvider('Yggtorrent', torrentConfig.username, torrentConfig.password);
         yggTorrentProviderOverride(TorrentSearchApi.getProvider('YggTorrent'));
 
-        const delugeConfig = configuration.deluge;
+        const delugeConfig = this.configuration.deluge;
         this.delugeClient = require('deluge')(delugeConfig.url, delugeConfig.password)
     }
 
@@ -27,7 +29,7 @@ export class YggService {
     }
 
     async download(torrent: any): Promise<any> {
-        const torrentPath = getConfiguration().torrentPath + torrent.title + '.torrent';
+        const torrentPath = this.configuration.torrent.downloadPath + '/' + torrent.title + '.torrent';
         await TorrentSearchApi.getProvider('YggTorrent').downloadTorrent(torrent, torrentPath);
         return new Promise((resolve, reject) => {
             this.delugeClient.add(torrentPath, getConfiguration().deluge.downloadLocation, (error: any, success: any, response: any) => {

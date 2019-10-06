@@ -5,7 +5,8 @@
   "scripts": {
     "tsc": "tsc",
     "watch": "concurrently \"tsc -w\" \"nodemon\"",
-    "start": "node --inspect=9229 $NODE_DEBUG_OPTION ./dist/server.js"
+    "debug": "node --inspect=9229 $NODE_DEBUG_OPTION ./dist/server.js",
+    "start": "node $NODE_DEBUG_OPTION ./dist/server.js"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",

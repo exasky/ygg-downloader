@@ -4,7 +4,7 @@ const format = require('string-format');
 
 export function yggTorrentProviderOverride(yggTorrentProvider: any) {
     yggTorrentProvider.baseUrl = 'https://www2.yggtorrent.pe';
-    yggTorrentProvider.searchUrl = '/engine/search?name={query}&description=&file=&uploader=&category={cat}&sub_category={subcat}&do=search&order={order}&sort=publish_date&page={page}';
+    yggTorrentProvider.searchUrl = '/engine/search?name={query}&description=&file=&uploader=&category={cat}&do=search&order={order}&sort=publish_date&page={page}';
 
     yggTorrentProvider.getUrl = (queryString: YggQuery): string => {
         const cat = yggTorrentProvider.getCategoryValue(queryString.cat);
@@ -22,11 +22,7 @@ export function yggTorrentProviderOverride(yggTorrentProvider: any) {
         return url;
     };
     yggTorrentProvider.search = async (yggQuery: YggQuery) => {
-        const pageLimit = yggQuery.limit ? Math.ceil(yggQuery.limit / this.resultsPerPageCount) : 1;
-        // const pageLimit = yggTorrentProvider.computePageCount(
-        //     limit,
-        //     this.resultsPerPageCount
-        // );
+        const pageLimit = 1;
         const url = yggTorrentProvider.getUrl(yggQuery);
 
         getLogger().log('debug', 'URL: ' + url);
@@ -49,10 +45,8 @@ export function yggTorrentProviderOverride(yggTorrentProvider: any) {
 export class YggQuery {
     query: string;
     cat: string = 'all';
-    subcat?: string;
     order?: string = 'desc';
     sort?: string = 'publish_date';
     page?: number = 0;
-    limit?: number = 0;
 }
 
