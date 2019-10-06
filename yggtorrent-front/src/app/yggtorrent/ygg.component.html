@@ -13,7 +13,6 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
   <button mat-button type="button" (click)="search()">Search</button>
 </form>
 
@@ -56,3 +55,9 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
+
+<mat-paginator [length]="searchLength"
+               [pageIndex]="searchPage"
+               [pageSize]="50"
+               (page)="pageEvent($event)">
+</mat-paginator>

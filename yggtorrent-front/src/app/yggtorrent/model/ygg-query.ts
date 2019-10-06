@@ -1,11 +1,9 @@
 export class YggQuery {
   query: string;
   cat: string;
-  subcat?: string;
   order?: '' | 'desc' | 'asc';
   sort?: string;
   page?: number;
-  limit?: number;
 
   constructor() {
     this.query = '';

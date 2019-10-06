@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material';
 import {LoaderComponent} from './loader/loader.component';
 import {LoaderInterceptor} from './interceptor/loader.interceptor';
+import {MatPaginatorModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {LoaderInterceptor} from './interceptor/loader.interceptor';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }

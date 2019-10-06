@@ -2,6 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {YggtorrentService} from './yggtorrent.service';
 import {YggSearchResponseLine} from './model/ygg-search-response';
 import {YggQuery} from './model/ygg-query';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'app-ygg',
@@ -17,6 +18,9 @@ export class YggComponent implements OnInit {
 
   displayedColumns: string[] = ['title', 'time', 'size', 'seed', 'leech', 'actions'];
 
+  searchLength = Infinity;
+  searchPage = 0;
+
   constructor(private yggTorrentService: YggtorrentService) {
   }
 
@@ -27,9 +31,15 @@ export class YggComponent implements OnInit {
   }
 
   search() {
-    this.yggTorrentService.search(this.yggSearchQuery).subscribe(response => {
-      this.yggSearchResult = response;
-    });
+    if (this.yggSearchQuery.query && this.yggSearchQuery.cat) {
+      this.searchLength = Infinity;
+      this.yggTorrentService.search(this.yggSearchQuery).subscribe(response => {
+        this.yggSearchResult = response;
+        if (this.yggSearchResult.length < 50) {
+          this.searchLength = this.yggSearchQuery.page + this.yggSearchResult.length;
+        }
+      });
+    }
   }
 
   detail(yggElement: YggSearchResponseLine) {
@@ -40,5 +50,11 @@ export class YggComponent implements OnInit {
     this.yggTorrentService.download(yggElement).subscribe(() => {
 
     });
+  }
+
+  pageEvent(page: PageEvent) {
+    this.searchPage = page.pageIndex;
+    this.yggSearchQuery.page = page.pageIndex * page.pageSize;
+    this.search();
   }
 }
