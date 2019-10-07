@@ -13,6 +13,7 @@ import {MatProgressSpinnerModule} from '@angular/material';
 import {LoaderComponent} from './loader/loader.component';
 import {LoaderInterceptor} from './interceptor/loader.interceptor';
 import {MatPaginatorModule} from '@angular/material';
+import {MatSortModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatPaginatorModule} from '@angular/material';
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }

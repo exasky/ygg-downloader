@@ -17,29 +17,32 @@
 </form>
 
 <div class="fles-grow overflow">
-  <mat-table [dataSource]="yggSearchResult">
+  <mat-table [dataSource]="dataSource"
+             matSort
+             [matSortActive]="yggSearchQuery.sort"
+             (matSortChange)="sortEvent($event)">
     <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.time | date:'dd/MM/yyyy hh:ss'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="size">
-      <mat-header-cell *matHeaderCellDef>Size</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Size</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.size}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="seed">
-      <mat-header-cell *matHeaderCellDef>Seed</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Seed</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.seeds}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="leech">
-      <mat-header-cell *matHeaderCellDef>Leech</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Leech</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.peers}} </mat-cell>
     </ng-container>
 

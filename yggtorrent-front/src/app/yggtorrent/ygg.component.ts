@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {YggtorrentService} from './yggtorrent.service';
 import {YggSearchResponseLine} from './model/ygg-search-response';
 import {YggQuery} from './model/ygg-query';
-import {PageEvent} from '@angular/material';
+import {MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 
 @Component({
   selector: 'app-ygg',
@@ -11,10 +11,12 @@ import {PageEvent} from '@angular/material';
 export class YggComponent implements OnInit {
   @HostBinding('class') cssClass = 'flex-grow d-flex flex-column';
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataSource = new MatTableDataSource();
+
   categories: string[] = [];
 
   yggSearchQuery: YggQuery = new YggQuery();
-  yggSearchResult: YggSearchResponseLine[];
 
   displayedColumns: string[] = ['title', 'time', 'size', 'seed', 'leech', 'actions'];
 
@@ -25,6 +27,7 @@ export class YggComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataSource.sort = this.sort;
     this.yggTorrentService.getCategories().subscribe(categories => {
       this.categories = categories;
     });
@@ -34,9 +37,10 @@ export class YggComponent implements OnInit {
     if (this.yggSearchQuery.query && this.yggSearchQuery.cat) {
       this.searchLength = Infinity;
       this.yggTorrentService.search(this.yggSearchQuery).subscribe(response => {
-        this.yggSearchResult = response;
-        if (this.yggSearchResult.length < 50) {
-          this.searchLength = this.yggSearchQuery.page + this.yggSearchResult.length;
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+        if (this.dataSource.data.length < 50) {
+          this.searchLength = this.yggSearchQuery.page + this.dataSource.data.length;
         }
       });
     }
@@ -55,6 +59,12 @@ export class YggComponent implements OnInit {
   pageEvent(page: PageEvent) {
     this.searchPage = page.pageIndex;
     this.yggSearchQuery.page = page.pageIndex * page.pageSize;
+    this.search();
+  }
+
+  sortEvent(event: Sort) {
+    this.yggSearchQuery.sort = event.active;
+    this.yggSearchQuery.order = event.direction;
     this.search();
   }
 }

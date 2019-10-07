@@ -4,7 +4,7 @@ const format = require('string-format');
 
 export function yggTorrentProviderOverride(yggTorrentProvider: any) {
     yggTorrentProvider.baseUrl = 'https://www2.yggtorrent.pe';
-    yggTorrentProvider.searchUrl = '/engine/search?name={query}&description=&file=&uploader=&category={cat}&do=search&order={order}&sort=publish_date&page={page}';
+    yggTorrentProvider.searchUrl = '/engine/search?name={query}&description=&file=&uploader=&category={cat}&do=search&order={order}&sort={sort}&page={page}';
 
     yggTorrentProvider.getUrl = (queryString: YggQuery): string => {
         const cat = yggTorrentProvider.getCategoryValue(queryString.cat);
