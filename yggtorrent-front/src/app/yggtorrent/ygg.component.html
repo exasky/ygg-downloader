@@ -16,12 +16,13 @@
   <button mat-button type="button" (click)="search()">Search</button>
 </form>
 
-<div class="fles-grow overflow">
+<div class="flex-grow overflow">
   <mat-table [dataSource]="dataSource"
              matSort
              [matSortActive]="yggSearchQuery.sort"
-             (matSortChange)="sortEvent($event)">
-    <ng-container matColumnDef="title">
+             (matSortChange)="sortEvent($event)"
+             style="min-width: 800px">
+    <ng-container matColumnDef="title" sticky>
       <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
     </ng-container>
@@ -46,11 +47,15 @@
       <mat-cell *matCellDef="let element"> {{element.peers}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+    <ng-container matColumnDef="actions" stickyEnd>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary" (click)="detail(element)">Show Detail</button>
-        <button mat-raised-button color="accent" (click)="download(element)">Download</button>
+        <button mat-raised-button color="primary" (click)="detail(element)">
+          <mat-icon aria-hidden="false">details</mat-icon>
+        </button>
+        <button mat-raised-button color="accent" (click)="download(element)">
+          <mat-icon aria-hidden="false">cloud_download</mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 
@@ -59,7 +64,8 @@
   </mat-table>
 </div>
 
-<mat-paginator [length]="searchLength"
+<mat-paginator class="flex-shrink"
+               [length]="searchLength"
                [pageIndex]="searchPage"
                [pageSize]="50"
                (page)="pageEvent($event)">

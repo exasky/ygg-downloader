@@ -7,6 +7,7 @@ import {MatSort, MatTableDataSource, PageEvent, Sort} from '@angular/material';
 @Component({
   selector: 'app-ygg',
   templateUrl: './ygg.component.html',
+  styleUrls: ['./ygg.component.scss']
 })
 export class YggComponent implements OnInit {
   @HostBinding('class') cssClass = 'flex-grow d-flex flex-column';
