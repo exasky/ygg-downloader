@@ -41,8 +41,5 @@ export class YggService {
                 resolve({success, response});
             });
         });
-        // await TorrentSearchApi.getProvider('YggTorrent').downloadTorrent(torrent, getConfiguration().torrentPath + torrent.title + '.torrent');
-        // return
-        // TorrentSearchApi.getProvider('YggTorrent').downloadTorrent(torrent, getConfiguration().torrentPath + torrent.title + '.torrent');
     }
 }

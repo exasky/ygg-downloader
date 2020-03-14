@@ -8,4 +8,4 @@ dist/
 config/*.yml
 !config/config.example.yml
 
-
+.DS_Store

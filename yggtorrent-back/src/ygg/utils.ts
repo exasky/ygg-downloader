@@ -3,7 +3,7 @@ import {getLogger} from "../utils/utils";
 const format = require('string-format');
 
 export function yggTorrentProviderOverride(yggTorrentProvider: any) {
-    yggTorrentProvider.baseUrl = 'https://www2.yggtorrent.pe';
+    yggTorrentProvider.baseUrl = 'https://www2.yggtorrent.se';
     yggTorrentProvider.searchUrl = '/engine/search?name={query}&description=&file=&uploader=&category={cat}&do=search&order={order}&sort={sort}&page={page}';
 
     yggTorrentProvider.getUrl = (queryString: YggQuery): string => {
@@ -38,7 +38,7 @@ export function yggTorrentProviderOverride(yggTorrentProvider: any) {
     };
     yggTorrentProvider.downloadTorrentBuffer = async (torrent: any) => {
         await yggTorrentProvider.ensureLogin();
-        return yggTorrentProvider.request(torrent.link, { encoding: null }).then((r: any) => r.body);
+        return yggTorrentProvider.request(torrent.link, {encoding: null});
     }
 }
 
@@ -49,4 +49,3 @@ export class YggQuery {
     sort?: string = 'publish_date';
     page?: number = 0;
 }
-
